@@ -11,8 +11,8 @@ function setup(){
     frameRate(3)
     headX = 300
     headY = 300
-    foodX = random(GRID_SIZE,width-GRID_SIZE)
-    foodY = random(GRID_SIZE,height-GRID_SIZE)
+    foodX = newFoodCoordinate()
+    foodY = newFoodCoordinate()
 }
 
 function draw(){
@@ -34,21 +34,16 @@ function draw(){
         headY = headY + GRID_SIZE;
     }
     }
-    if (headX+20>width){
-        headX = headX - 20;
-        gameOver = true
+    if (isOutOfBounds(headX,0,600)){
+        headX = headX;
+        gameOver = true;
     }
-    if (headY+20>height){
-        headY = headY - 20;
-        gameOver = true
+    if (isOutOfBounds(headY,0,600)){
+        headY = headY;
+        gameOver = true;
     }
-    if (headX-20<0){
-        headX = headX + 20;
-        gameOver = true
-    }
-    if (headY-20<0){
-        headY = headY + 20;
-        gameOver = true
+    if (gameOver === true){
+        background(255,0,0);
     }
 }
 
@@ -67,4 +62,11 @@ function keyPressed() {
     if (key === RIGHT_ARROW || key ==="d"){
         direction = "right";
     }
+}
+function newFoodCoordinate(){
+    return floor(random(0, width/GRID_SIZE)) * GRID_SIZE + 10;
+}
+      
+function isOutOfBounds(coordinate,minVal,maxVal){
+    return coordinate < minVal || coordinate > maxVal;
 }
