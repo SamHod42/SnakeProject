@@ -45,6 +45,10 @@ function draw(){
     if (gameOver === true){
         background(255,0,0);
     }
+    if (isSnakeOverFood()){
+        foodX = newFoodCoordinate();
+        foodY = newFoodCoordinate();
+    }
 }
 
 function keyPressed() {
@@ -69,4 +73,11 @@ function newFoodCoordinate(){
       
 function isOutOfBounds(coordinate,minVal,maxVal){
     return coordinate < minVal || coordinate > maxVal;
+}
+
+function isSnakeOverFood(){
+    if (headX+10 === foodX && headY+10 === foodY){
+        return true;
+    }
+    return false   
 }
